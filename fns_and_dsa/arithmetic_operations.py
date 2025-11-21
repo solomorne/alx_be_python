@@ -1,12 +1,14 @@
-def perform_operation(num1, num2, num3):
-    
-    if num3 == add:
+# Perform basic arithmetic function
+def perform_operation(num1, num2, operation):
+
+# Using the conditional statement to add, subtract, multiply and divide
+    if operation == add:
         return num1 + num2
-    elif num3 == subtract:
+    elif operation == subtract:
         return num1 - num2
-    elif num3 == multiply:
+    elif operation == multiply:
         return num1 * num2
-    elif num3 == divide:
+    elif operation == divide:
         if num2 == 0:
             print("Undefined")
         else:
