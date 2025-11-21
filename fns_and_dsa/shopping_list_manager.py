@@ -30,7 +30,6 @@ def display_menu():
     print("4. Exit")
 
 def main():
-    shopping_list = []
     while True:
         display_menu()
         choice = input("Select a number (1-4): ")
