@@ -5,6 +5,6 @@ def safe_divide(numerator, denominator):
         result = num / den
         return f"The result of the division is {result}"
     except ZeroDivisionError as e:
-        return f"Not divisible by Zero. {e}"
+        return f"Error: Cannot divide by zero. {e}"
     except ValueError as e:
-        return f"Please enter numeric values only. {e}"
+        return f"Error: Please enter numeric values only. {e}"
