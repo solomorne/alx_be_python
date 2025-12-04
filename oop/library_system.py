@@ -1,6 +1,6 @@
 ### library_system.py
 
-# --- Base Class: Book (The parent blueprint) ---
+# --- Base Class: Book ---
 class Book:
     """
     Base class for all book types.
@@ -10,8 +10,11 @@ class Book:
         self.title = title
         self.author = author
 
-    def get_details(self) -> str:
-        """Returns basic book details."""
+    def __str__(self) -> str:
+        """
+        String Representation: Returns a user-friendly string with basic details.
+        This is used when the object is printed.
+        """
         return f"{self.title} by {self.author}"
 
 # --- Derived Class: EBook (Inherits from Book) ---
@@ -21,15 +24,16 @@ class EBook(Book):
     """
     def __init__(self, title: str, author: str, file_size: int):
         """Initializes EBook attributes, calling the base class constructor."""
-        # Call the parent's __init__ method
         super().__init__(title, author)
         self.file_size = file_size
 
-    def get_details(self) -> str:
-        """Overrides base method to include file size."""
-        # Use the parent's get_details and add specific info
-        base_details = super().get_details()
-        return f"{base_details} (EBook, Size: {self.file_size}MB)"
+    def __str__(self) -> str:
+        """
+        Overrides the base method to include EBook-specific details.
+        """
+        # Call the parent's __str__ for the base details and append specific info
+        base_str = super().__str__()
+        return f"{base_str} (EBook, Size: {self.file_size}MB)"
 
 # --- Derived Class: PrintBook (Inherits from Book) ---
 class PrintBook(Book):
@@ -38,23 +42,24 @@ class PrintBook(Book):
     """
     def __init__(self, title: str, author: str, page_count: int):
         """Initializes PrintBook attributes, calling the base class constructor."""
-        # Call the parent's __init__ method
         super().__init__(title, author)
         self.page_count = page_count
 
-    def get_details(self) -> str:
-        """Overrides base method to include page count."""
-        base_details = super().get_details()
-        return f"{base_details} (PrintBook, Pages: {self.page_count})"
+    def __str__(self) -> str:
+        """
+        Overrides the base method to include PrintBook-specific details.
+        """
+        # Call the parent's __str__ for the base details and append specific info
+        base_str = super().__str__()
+        return f"{base_str} (PrintBook, Pages: {self.page_count})"
 
-# --- Composition Class: Library (Manages a collection of books) ---
+# --- Composition Class: Library ---
 class Library:
     """
     Manages a collection of Book, EBook, and PrintBook instances using composition.
     """
     def __init__(self):
         """Initializes the library with an empty list of books."""
-        # The 'books' list *is part of* the Library object (composition)
         self.books = [] 
 
     def add_book(self, book: Book):
@@ -63,13 +68,14 @@ class Library:
         """
         if isinstance(book, Book):
             self.books.append(book)
-            print(f"Added: {book.title}")
+            # Printing the book here automatically calls its __str__ method
+            print(f"✅ Added: {book.title}")
         else:
-            print("Error: Item is not a valid Book type.")
+            print("❌ Error: Item is not a valid Book type.")
 
     def list_books(self):
         """
-        Prints the details for all books currently in the library collection.
+        Prints details of each book in the library using the __str__ method.
         """
         if not self.books:
             print("\nThe library shelf is empty.")
@@ -77,6 +83,7 @@ class Library:
 
         print("\n📚 Current Library Collection:")
         for i, book in enumerate(self.books, 1):
-            # Polymorphism in action: calling .get_details() executes the correct 
-            # method based on the book's specific type (Book, EBook, or PrintBook).
-            print(f"{i}. {book.get_details()}")
+            # When you use 'print(book)', Python automatically calls book.__str__().
+            # This demonstrates polymorphism: the same method call produces different
+            # output based on whether the object is a Book, EBook, or PrintBook.
+            print(f"{i}. {book}")
