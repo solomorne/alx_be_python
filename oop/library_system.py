@@ -50,9 +50,8 @@ class Library:
     def add_book(self, book: Book):
         if isinstance(book, Book):
             self.books.append(book)
-            print(f"✅ Added: {book.title}")
         else:
-            print("❌ Error: Item is not a valid Book type.")
+            raise TypeError("Only instances of Book, EBook, or PrintBook can be added.")
 
     def list_books(self):
         if not self.books:
